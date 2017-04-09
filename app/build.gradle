@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+def AAVersion = '4.3.0'
+def AndroidSupportVersion = '25.3.1'
+def AndroidTestSupportVersion = '0.4'
+def EspressoVersion = '2.2.1'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    dataBinding.enabled = true
+    defaultConfig {
+        applicationId "com.gojektest.dipo.contact"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    testCompile 'junit:junit:4.12'
+    //MockWebServer
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.6.0'
+
+    //Instrumentation Test
+    androidTestCompile("com.android.support.test:runner:$AndroidTestSupportVersion") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test:rules:$AndroidTestSupportVersion") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$EspressoVersion") {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-intents:$EspressoVersion") {
+        exclude module: 'support-annotations'
+    }
+
+    // AndroidAnnotations
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+    // AndroidAnnotations - Spring REST plugin
+    apt "org.androidannotations:rest-spring:$AAVersion"
+    compile "org.androidannotations:rest-spring-api:$AAVersion"
+    // Android Design Support Library
+    compile "com.android.support:design:$AndroidSupportVersion"
+    // Android CardView
+    compile "com.android.support:cardview-v7:$AndroidSupportVersion"
+    //ORMLite Android
+    compile 'com.j256.ormlite:ormlite-android:5.0'
+    // Spring Android
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    // Edittext Validator
+    compile 'com.andreabaccega:android-form-edittext:1.2.1@aar'
+    // Jackson
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+    // CircleImageView
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    // Javax Persistence
+    compile 'javax.persistence:persistence-api:1.0'
+
+    // Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+
+}
